@@ -109,6 +109,7 @@ function renderMap(activeRoomIds) {
       <div class="roof"></div>
       <div class="rname">${escapeHtml(r.label)}</div>
       ${r.mapel ? `<div class="rmapel">${escapeHtml(r.mapel)}</div>` : ''}
+      ${r.teacher ? `<div class="rteacher">${escapeHtml(r.teacher)}</div>` : ''}
     `;
     campusEl.appendChild(cell);
   });

@@ -149,3 +149,8 @@ footer code{color:var(--amber); background:#0f2038; padding:1px 5px; border-radi
   background:#3a1620; border:1px solid #7a2c3a; color:#f2b8c2; border-radius:10px;
   padding:12px 14px; margin-bottom:20px; font-size:.75rem;
 }
+
+.campus-area .rteacher{
+  font-size:.46rem; color:rgba(238,230,214,.55); margin-top:1px; position:relative; z-index:1;
+  line-height:1.05; font-style:italic;
+}

@@ -5,10 +5,8 @@ const { requireAuth } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Publik: siapa saja boleh membaca daftar ruang (bukan data rahasia).
 router.get('/', roomController.listRooms);
 
-// Hanya admin yang login boleh mengubah data ruang.
 router.put(
   '/:id',
   requireAuth,
@@ -17,6 +15,7 @@ router.put(
     body('label').trim().isLength({ min: 1, max: 100 }).escape(),
     body('mapel').optional({ nullable: true }).trim().isLength({ max: 100 }).escape(),
     body('category').optional({ nullable: true }).trim().isLength({ max: 30 }).escape(),
+    body('teacher').optional({ nullable: true }).trim().isLength({ max: 150 }).escape(),
     body('is_facility').optional().isBoolean(),
   ],
   roomController.updateRoom
