@@ -6,17 +6,18 @@ const { requireAuth } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Publik: jadwal seminggu penuh untuk XI TKJ 1.
 router.get('/', scheduleController.getFullSchedule);
 
-// Publik: status "sedang berlangsung sekarang" + ruang yang harus menyala.
 router.get(
   '/live',
-  [query('now').optional().isISO8601()],
+  [
+    query('day').optional().isString().isLength({ max: 20 }),
+    query('hour').optional().isInt({ min: 0, max: 23 }),
+    query('minute').optional().isInt({ min: 0, max: 59 }),
+  ],
   scheduleController.getLiveStatus
 );
 
-// Hanya admin: ubah satu sel jadwal (hari + jam -> kode mapel).
 router.put(
   '/',
   requireAuth,

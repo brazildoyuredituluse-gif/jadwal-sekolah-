@@ -195,8 +195,12 @@ function renderStatus(live) {
 /* ================= LIVE POLLING ================= */
 async function refreshLive() {
   try {
-    const now = new Date().toISOString();
-    const live = await apiGet(`/schedule/live?now=${encodeURIComponent(now)}`);
+    const now = new Date();
+    const dayNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const day = dayNames[now.getDay()];
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const live = await apiGet(`/schedule/live?day=${encodeURIComponent(day)}&hour=${hour}&minute=${minute}`);
     const activeRooms = renderStatus(live);
     renderMap(activeRooms);
     renderTable(live.day, live.slot ? live.slot.slot_key : null);

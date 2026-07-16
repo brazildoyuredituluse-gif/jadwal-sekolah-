@@ -9,7 +9,6 @@ function toMinutes(hhmmss) {
   return h * 60 + m;
 }
 
-// Mengubah jadwal mentah (hasil query) menjadi struktur { day: { slotKey: subjectCode } }
 function shapeSchedule(rawRows) {
   const shaped = {};
   DAYS.forEach((d) => { shaped[d] = {}; });
@@ -33,16 +32,15 @@ async function getFullSchedule(req, res, next) {
       days: DAYS,
       slots,
       schedule: shapeSchedule(rawSchedule),
-      subjectMapel: subjectMap, // dipakai frontend untuk resolusi ruang bila perlu
+      subjectMapel: subjectMap,
     });
   } catch (err) {
     next(err);
   }
 }
 
-// Menentukan jam & mapel yang sedang berlangsung "sekarang", lalu mencari ruang
-// yang harus menyala. Klien boleh mengirim ?now=<ISO string> (waktu lokal HP)
-// supaya sinkron dengan jam perangkat pengguna, bukan jam server.
+// PENTING: hari & jam SELALU dikirim oleh perangkat pengguna (bukan dihitung ulang
+// di server), supaya tidak salah zona waktu antara device dan server.
 async function getLiveStatus(req, res, next) {
   try {
     const errors = validationResult(req);
@@ -50,17 +48,14 @@ async function getLiveStatus(req, res, next) {
       return res.status(400).json({ error: 'Parameter waktu tidak valid.' });
     }
 
-    const now = req.query.now ? new Date(req.query.now) : new Date();
-    if (Number.isNaN(now.getTime())) {
-      return res.status(400).json({ error: 'Format waktu tidak dikenali.' });
-    }
+    const { day, hour, minute } = req.query;
 
-    const jsDay = now.getDay(); // 0=Minggu .. 6=Sabtu
-    if (jsDay === 0 || jsDay === 6) {
+    if (!day || !DAYS.includes(day)) {
+      // Sabtu/Minggu, atau parameter tidak dikirim -> anggap tidak ada jadwal.
       return res.json({ day: null, slot: null, subjectCode: null, mapel: null, rooms: [] });
     }
-    const day = DAYS[jsDay - 1];
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const nowMinutes = parseInt(hour, 10) * 60 + parseInt(minute, 10);
 
     const [slots, rawSchedule, subjectMap] = await Promise.all([
       scheduleModel.getSlots(),
@@ -80,13 +75,7 @@ async function getLiveStatus(req, res, next) {
     const subjectCode = shaped[day] ? shaped[day][activeSlot.slot_key] : undefined;
 
     if (subjectCode === undefined || subjectCode === null) {
-      return res.json({
-        day,
-        slot: activeSlot,
-        subjectCode: subjectCode || null,
-        mapel: null,
-        rooms: [],
-      });
+      return res.json({ day, slot: activeSlot, subjectCode: subjectCode || null, mapel: null, rooms: [] });
     }
 
     const mapelName = subjectMap[subjectCode] || null;
