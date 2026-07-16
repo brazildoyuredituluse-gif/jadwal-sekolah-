@@ -1,14 +1,8 @@
 {
-  "name": "school-schedule-backend",
+  "name": "school-schedule",
   "version": "1.0.0",
   "private": true,
-  "description": "API aman untuk Papan Jadwal Hidup — SMKN 1 Cilamaya (XI TKJ 1)",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js",
-    "create-admin": "node utils/createAdmin.js"
-  },
+  "engines": { "node": ">=18" },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -19,5 +13,9 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.0"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "create-admin": "node backend/utils/createAdmin.js"
   }
 }
