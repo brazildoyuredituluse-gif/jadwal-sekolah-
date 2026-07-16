@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papan Jadwal Hidup — SMKN 1 Cilamaya (XI TKJ 1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="compass"></div>
+      <div>
+        <h1>Papan Jadwal Hidup</h1>
+        <p>SMKN 1 CILAMAYA · XI TKJ 1 · Tahun Pelajaran 2026/2027</p>
+      </div>
+    </div>
+    <div class="clockbox">
+      <div class="time" id="clockTime">--:--:--</div>
+      <div class="date" id="clockDate">memuat…</div>
+    </div>
+  </header>
+
+  <div class="status-banner" id="statusBanner">
+    <div style="flex:1; min-width:200px;">
+      <div class="mapel" id="statusMapel">—</div>
+      <div class="sub" id="statusSub">—</div>
+    </div>
+    <span class="badge" id="statusRoom">Ruang —</span>
+    <span class="badge" id="statusTime">--:-- – --:--</span>
+  </div>
+
+  <div class="example-note">
+    <b>Contoh aturan ruang:</b> mapel <b>Matematika (MTK)</b> memakai <b>Kelas 9, Kelas 10, dan Kelas 11</b>.
+    Saat jam MTK berlangsung, ketiga ruang itu menyala bersama di peta di bawah.
+  </div>
+
+  <section>
+    <h2>Denah Sekolah</h2>
+    <div class="map-legend" id="mapLegend"></div>
+    <div class="map-stage">
+      <div class="map-toprow"><div class="map-compass"></div><span>Berorientasi Utara — sesuai denah "Pembagian Ruang Belajar"</span></div>
+      <div class="campus" id="campus"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Jadwal Minggu Ini — XI TKJ 1</h2>
+    <div class="table-scroll">
+      <table id="scheduleTable"></table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p><b>Catatan data:</b> Jadwal XI TKJ 1 lengkap Senin–Jumat, jam ke-1 s.d. 9. Kolom Sabtu belum tersedia. Denah mengikuti posisi asli dari foto "Pembagian Ruang Belajar T.P. 2026/2027", orientasi Utara di atas.</p>
+  <p style="margin-top:8px;">Data dilayani lewat API backend (bukan tertanam di halaman) dan hanya bisa diubah oleh admin yang login di <code>/admin</code>.</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

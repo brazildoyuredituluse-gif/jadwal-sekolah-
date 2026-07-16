@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin — Papan Jadwal Hidup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .admin-header{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .admin-header .who{font-size:.75rem; color:var(--ink-dim);}
+  button.small{
+    background:transparent; border:1px solid var(--panel-line); color:var(--ink-dim);
+    padding:6px 12px; border-radius:8px; font-family:'IBM Plex Mono',monospace; font-size:.7rem; cursor:pointer;
+  }
+  button.small:hover{border-color:var(--amber); color:var(--amber);}
+  .edit-table input, .edit-table select{
+    width:100%; background:#0f2038; border:1px solid var(--panel-line); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:.7rem; padding:4px 6px; border-radius:5px;
+  }
+  .save-btn{
+    background:var(--amber); color:#241505; border:none; padding:4px 10px; border-radius:6px;
+    font-size:.65rem; font-weight:700; cursor:pointer;
+  }
+  .row-msg{font-size:.62rem; color:var(--ink-dim); margin-top:2px; display:block;}
+  .pw-form{display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end;}
+  .pw-form .field{flex:1; min-width:160px;}
+  .pw-form label{display:block; font-size:.62rem; color:var(--ink-dim); margin-bottom:4px;}
+  .pw-form input{width:100%; background:#0f2038; border:1px solid var(--panel-line); color:var(--ink); padding:7px 9px; border-radius:7px; font-family:'IBM Plex Mono',monospace; font-size:.75rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="admin-header">
+    <div class="brand">
+      <div class="compass"></div>
+      <div>
+        <h1>Dashboard Admin</h1>
+        <p>Kelola jadwal &amp; ruang — XI TKJ 1</p>
+      </div>
+    </div>
+    <div>
+      <span class="who" id="whoAmI">memuat…</span>
+      <button class="small" id="logoutBtn" style="margin-left:10px;">Keluar</button>
+    </div>
+  </header>
+
+  <div id="dashError" class="error-banner" style="display:none;"></div>
+
+  <section>
+    <h2>Jadwal XI TKJ 1</h2>
+    <div class="table-scroll">
+      <table id="editTable" class="edit-table"></table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ganti Password</h2>
+    <form id="pwForm" class="pw-form">
+      <div class="field">
+        <label>Password saat ini</label>
+        <input type="password" id="currentPassword" required maxlength="200">
+      </div>
+      <div class="field">
+        <label>Password baru (min. 10 karakter)</label>
+        <input type="password" id="newPassword" required minlength="10" maxlength="200">
+      </div>
+      <button type="submit" class="save-btn">Simpan Password</button>
+    </form>
+    <div class="row-msg" id="pwMsg"></div>
+  </section>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
