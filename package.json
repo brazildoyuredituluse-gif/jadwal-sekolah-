@@ -2,7 +2,9 @@
   "name": "school-schedule",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -16,6 +18,11 @@
   },
   "scripts": {
     "start": "node backend/server.js",
-    "create-admin": "node backend/utils/createAdmin.js"
+    "create-admin": "node backend/utils/createAdmin.js",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.112.0"
   }
 }
